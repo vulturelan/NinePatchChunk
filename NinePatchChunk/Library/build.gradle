@@ -1,25 +1,27 @@
 buildscript {
 	repositories {
 		mavenCentral()
-		jcenter()
+		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:2.2.0-beta3'
-		classpath "org.jacoco:org.jacoco.core:0.7.7.201606060606"
+		classpath 'com.android.tools.build:gradle:8.7.2'
+		// classpath "org.jacoco:org.jacoco.core:0.7.7.201606060606"
 	}
 }
 apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
+// apply plugin: 'maven-publish'
 
 repositories {
 	mavenCentral()
-	maven{
-		url 'http://dl.bintray.com/lemonade/maven'
-	}
+	google()
+	// maven{
+	// 	url 'http://dl.bintray.com/lemonade/maven'
+	// }
 }
 
 android {
-	compileSdkVersion 24
+	namespace 'ua.anatolii.graphics.ninepatch'
+	compileSdk 34
 	buildToolsVersion "24.0.2"
 	defaultConfig {
 		minSdkVersion 10
@@ -42,35 +44,35 @@ android {
 	}
 }
 dependencies {
-	androidTestCompile 'org.hamcrest:java-hamcrest:2.0.0.0'
-	androidTestCompile 'de.lemona.android:android-testng:1.1.27'
-	compile 'com.android.support:support-annotations:24.2.0'
+	androidTestImplementation 'org.hamcrest:java-hamcrest:2.0.0.0'
+	androidTestImplementation 'de.lemona.android:android-testng:1.1.27'
+	implementation 'com.android.support:support-annotations:24.2.0'
 }
 
-publishing {
-	publications {
-		release(MavenPublication) {
-			groupId 'ua.anatolii.graphics'
-			artifactId 'ninepatch'
-			version "$android.defaultConfig.versionName"
-			artifact("$buildDir/outputs/aar/Library-release.aar")
-		}
-		debug(MavenPublication) {
-			groupId 'ua.anatolii.graphics'
-			artifactId 'ninepatch'
-			version "$android.defaultConfig.versionName-debug"
-			artifact("$buildDir/outputs/aar/Library-debug.aar")
-		}
-	}
+// publishing {
+// 	publications {
+// 		release(MavenPublication) {
+// 			groupId 'ua.anatolii.graphics'
+// 			artifactId 'ninepatch'
+// 			version "$android.defaultConfig.versionName"
+// 			artifact("$buildDir/outputs/aar/Library-release.aar")
+// 		}
+// 		debug(MavenPublication) {
+// 			groupId 'ua.anatolii.graphics'
+// 			artifactId 'ninepatch'
+// 			version "$android.defaultConfig.versionName-debug"
+// 			artifact("$buildDir/outputs/aar/Library-debug.aar")
+// 		}
+// 	}
+//
+// 	repositories {
+// 		maven {
+// 			url "$rootProject.projectDir.parent/m2Repository"
+// 			if(!file("$rootProject.projectDir.parent/m2Repository").exists()){
+// 				mkdir("$rootProject.projectDir.parent/m2Repository")
+// 			}
+// 		}
+// 	}
+// }
 
-	repositories {
-		maven {
-			url "$rootProject.projectDir.parent/m2Repository"
-			if(!file("$rootProject.projectDir.parent/m2Repository").exists()){
-				mkdir("$rootProject.projectDir.parent/m2Repository")
-			}
-		}
-	}
-}
-
-project.tasks.getByPath(":Library:publish").dependsOn project.tasks.getByPath(":Library:assemble")
+// project.tasks.getByPath(":Library:publish").dependsOn project.tasks.getByPath(":Library:assemble")
